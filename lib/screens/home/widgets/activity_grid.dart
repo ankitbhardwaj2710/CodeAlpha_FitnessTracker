@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/dashboard_model.dart';
 import '../../../widgets/info_card.dart';
 
 class ActivityGrid extends StatelessWidget {
@@ -14,31 +15,36 @@ class ActivityGrid extends StatelessWidget {
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
       childAspectRatio: 1.15,
-      children: const [
+      children: [
+
         InfoCard(
           title: "Steps",
-          value: "8,240",
+          value: dashboardData.steps.toString(),
           icon: Icons.directions_walk,
           color: Colors.deepPurple,
         ),
+
         InfoCard(
           title: "Calories",
-          value: "620",
+          value: dashboardData.calories.toString(),
           icon: Icons.local_fire_department,
           color: Colors.orange,
         ),
+
         InfoCard(
           title: "Water",
-          value: "2.5 L",
+          value: "${dashboardData.water} L",
           icon: Icons.water_drop,
           color: Colors.cyan,
         ),
+
         InfoCard(
           title: "Workout",
-          value: "55 Min",
+          value: "${dashboardData.workoutMinutes} Min",
           icon: Icons.fitness_center,
           color: Colors.green,
         ),
+
       ],
     );
   }
