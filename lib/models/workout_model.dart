@@ -1,46 +1,39 @@
 class WorkoutModel {
+  final int? id;
   final String title;
-  final String icon;
-  final String duration;
+  final String category;
+  final int duration;
   final int calories;
   final String level;
 
   const WorkoutModel({
+    this.id,
     required this.title,
-    required this.icon,
+    required this.category,
     required this.duration,
     required this.calories,
     required this.level,
   });
-}
 
-const List<WorkoutModel> workoutList = [
-  WorkoutModel(
-    title: "Chest Workout",
-    icon: "💪",
-    duration: "30 min",
-    calories: 280,
-    level: "Intermediate",
-  ),
-  WorkoutModel(
-    title: "Morning Cardio",
-    icon: "🏃",
-    duration: "20 min",
-    calories: 220,
-    level: "Beginner",
-  ),
-  WorkoutModel(
-    title: "Leg Day",
-    icon: "🦵",
-    duration: "40 min",
-    calories: 420,
-    level: "Advanced",
-  ),
-  WorkoutModel(
-    title: "Yoga Session",
-    icon: "🧘",
-    duration: "25 min",
-    calories: 120,
-    level: "Easy",
-  ),
-];
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': title,
+      'category': category,
+      'duration': duration,
+      'calories': calories,
+      'level': level,
+    };
+  }
+
+  factory WorkoutModel.fromMap(Map<String, dynamic> map) {
+    return WorkoutModel(
+      id: map['id'],
+      title: map['name'],
+      category: map['category'],
+      duration: map['duration'],
+      calories: map['calories'],
+      level: map['level'],
+    );
+  }
+}

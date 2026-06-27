@@ -1,21 +1,24 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../database/database_helper.dart';
+import '../models/workout_model.dart';
 
 class WorkoutService {
-  Future<int> insertWorkout(Map<String, dynamic> workout) async {
+  Future<int> insertWorkout(WorkoutModel workout) async {
     final Database db = await DatabaseHelper.instance.database;
 
-    return await db.insert(
+    return db.insert(
       'workouts',
-      workout,
+      workout.toMap(),
     );
   }
 
-  Future<List<Map<String, dynamic>>> getWorkouts() async {
+  Future<List<WorkoutModel>> getWorkouts() async {
     final Database db = await DatabaseHelper.instance.database;
 
-    return await db.query('workouts');
+    final result = await db.query('workouts');
+
+    return result.map((e) => WorkoutModel.fromMap(e)).toList();
   }
 
   Future<void> deleteWorkout(int id) async {
@@ -23,7 +26,7 @@ class WorkoutService {
 
     await db.delete(
       'workouts',
-      where: 'id=?',
+      where: 'id = ?',
       whereArgs: [id],
     );
   }

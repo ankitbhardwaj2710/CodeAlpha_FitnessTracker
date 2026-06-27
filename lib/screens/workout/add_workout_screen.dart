@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import 'widgets/workout_dropdown.dart';
 import 'widgets/workout_textfield.dart';
+import '../../models/workout_model.dart';
+import '../../services/workout_service.dart';
 
 class AddWorkoutScreen extends StatefulWidget {
   const AddWorkoutScreen({super.key});
@@ -32,10 +34,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
 
-      appBar: AppBar(
-        title: const Text("Add Workout"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("Add Workout"), centerTitle: true),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -43,11 +42,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            WorkoutTextField(
-              label: "Workout Name",
-              controller: nameController,
-            ),
+            WorkoutTextField(label: "Workout Name", controller: nameController),
 
             const SizedBox(height: 20),
 
@@ -90,11 +85,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
             WorkoutDropdown(
               label: "Level",
               value: level,
-              items: const [
-                "Beginner",
-                "Intermediate",
-                "Advanced",
-              ],
+              items: const ["Beginner", "Intermediate", "Advanced"],
               onChanged: (value) {
                 setState(() {
                   level = value!;
@@ -109,28 +100,38 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
               height: 55,
 
               child: ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "Workout saved successfully! (SQLite next sprint)",
-                      ),
-                    ),
+                onPressed: () async {
+                  if (nameController.text.trim().isEmpty ||
+                      durationController.text.trim().isEmpty ||
+                      caloriesController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Please fill all fields")),
+                    );
+
+                    return;
+                  }
+
+                  final workout = WorkoutModel(
+                    title: nameController.text.trim(),
+                    category: category,
+                    duration: int.parse(durationController.text),
+                    calories: int.parse(caloriesController.text),
+                    level: level,
                   );
 
-                  Navigator.pop(context);
+                  await WorkoutService().insertWorkout(workout);
+
+                  if (mounted) {
+                    Navigator.pop(context);
+                  }
                 },
 
                 child: const Text(
                   "SAVE WORKOUT",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
-            )
-
+            ),
           ],
         ),
       ),
