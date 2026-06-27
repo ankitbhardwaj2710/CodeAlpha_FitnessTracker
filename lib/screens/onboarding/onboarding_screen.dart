@@ -4,7 +4,7 @@ import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
 import 'onboarding_data.dart';
 import '../home/home_screen.dart';
-
+import '../navigation/main_navigation.dart';
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -134,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     if (currentPage == 2) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        MaterialPageRoute(builder: (_) => const MainNavigation(),),
                       );
                     } else {
                       _controller.nextPage(
