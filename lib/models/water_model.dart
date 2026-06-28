@@ -1,19 +1,19 @@
 class WaterModel {
   final int? id;
-  final int amount; // in ml
-  final String date;
+  final int amount;
+  final DateTime dateTime;
 
-  const WaterModel({
+  WaterModel({
     this.id,
     required this.amount,
-    required this.date,
+    required this.dateTime,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'amount': amount,
-      'date': date,
+      'dateTime': dateTime.toIso8601String(),
     };
   }
 
@@ -21,7 +21,19 @@ class WaterModel {
     return WaterModel(
       id: map['id'],
       amount: map['amount'],
-      date: map['date'],
+      dateTime: DateTime.parse(map['dateTime']),
+    );
+  }
+
+  WaterModel copyWith({
+    int? id,
+    int? amount,
+    DateTime? dateTime,
+  }) {
+    return WaterModel(
+      id: id ?? this.id,
+      amount: amount ?? this.amount,
+      dateTime: dateTime ?? this.dateTime,
     );
   }
 }
