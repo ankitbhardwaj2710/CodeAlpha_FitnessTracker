@@ -1,28 +1,28 @@
-import '../models/dashboard_stats.dart';
+import '../models/dashboard_model.dart';
+import 'water_service.dart';
 import 'workout_service.dart';
 
 class DashboardService {
-  final WorkoutService _service = WorkoutService();
+  final WorkoutService workoutService = WorkoutService();
+  final WaterService waterService = WaterService();
 
   Future<DashboardStats> getStats() async {
-  final workouts = await _service.getWorkouts();
+    final workouts = await workoutService.getWorkouts();
+    final water = await waterService.getTodayWater();
 
-  print("Dashboard Workouts Count: ${workouts.length}");
+    int calories = 0;
+    int duration = 0;
 
-  int calories = 0;
-  int duration = 0;
+    for (final workout in workouts) {
+      calories += workout.calories;
+      duration += workout.duration;
+    }
 
-  for (final workout in workouts) {
-    print(workout.toMap());
-
-    calories += workout.calories;
-    duration += workout.duration;
+    return DashboardStats(
+      workoutCount: workouts.length,
+      totalCalories: calories,
+      totalDuration: duration,
+      todayWater: water,
+    );
   }
-
-  return DashboardStats(
-    workoutCount: workouts.length,
-    totalCalories: calories,
-    totalDuration: duration,
-  );
-}
 }

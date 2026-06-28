@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
-import '../../models/dashboard_stats.dart';
+import '../../models/dashboard_model.dart';
 import '../../services/dashboard_service.dart';
 import '../../widgets/section_title.dart';
 
@@ -9,6 +9,7 @@ import 'widgets/activity_grid.dart';
 import 'widgets/challenge_card.dart';
 import 'widgets/goal_card.dart';
 import 'widgets/greeting_section.dart';
+import 'widgets/water_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-
       body: SafeArea(
         child: isLoading
             ? const Center(
@@ -85,12 +85,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 30),
 
                       const SectionTitle(
+                        title: "Today's Water",
+                      ),
+
+                      const SizedBox(height: 15),
+
+                      const WaterCard(),
+
+                      const SizedBox(height: 30),
+
+                      const SectionTitle(
                         title: "Today's Challenge",
                       ),
 
                       const SizedBox(height: 15),
 
                       const ChallengeCard(),
+
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

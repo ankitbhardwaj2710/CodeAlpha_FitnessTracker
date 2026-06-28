@@ -1,23 +1,13 @@
-class DashboardModel {
-  final int steps;
-  final int calories;
-  final double water;
-  final int workoutMinutes;
-  final double goalPercent;
+class DashboardStats {
+  final int workoutCount;
+  final int totalCalories;
+  final int totalDuration;
+  final int todayWater;
 
-  const DashboardModel({
-    required this.steps,
-    required this.calories,
-    required this.water,
-    required this.workoutMinutes,
-    required this.goalPercent,
+  DashboardStats({
+    required this.workoutCount,
+    required this.totalCalories,
+    required this.totalDuration,
+    required this.todayWater,
   });
 }
-
-const DashboardModel dashboardData = DashboardModel(
-  steps: 8240,
-  calories: 620,
-  water: 2.5,
-  workoutMinutes: 55,
-  goalPercent: .78,
-);

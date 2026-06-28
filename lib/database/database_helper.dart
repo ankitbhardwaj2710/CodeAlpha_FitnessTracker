@@ -20,35 +20,37 @@ class DatabaseHelper {
 
     final path = join(dbPath, 'fitness_tracker.db');
 
-   return await openDatabase(
-  path,
-  version: 2,
-  onCreate: _createDatabase,
-  onUpgrade: (db, oldVersion, newVersion) async {
-    await db.execute("DROP TABLE IF EXISTS workouts");
-    await db.execute("DROP TABLE IF EXISTS water");
-    await _createDatabase(db, newVersion);
-  },
-);
+    return await openDatabase(
+      path,
+      version: 3,
+      onCreate: _createDatabase,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        await db.execute("DROP TABLE IF EXISTS workouts");
+        await db.execute("DROP TABLE IF EXISTS water");
+
+        await _createDatabase(db, newVersion);
+      },
+    );
   }
 
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
       CREATE TABLE workouts(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        category TEXT,
-        duration INTEGER,
-        calories INTEGER,
-        level TEXT
+        name TEXT NOT NULL,
+        category TEXT NOT NULL,
+        duration INTEGER NOT NULL,
+        calories INTEGER NOT NULL,
+        level TEXT NOT NULL
       )
     ''');
+
     await db.execute('''
       CREATE TABLE water(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        amount INTEGER,
-        date TEXT
+        amount INTEGER NOT NULL,
+        dateTime TEXT NOT NULL
       )
-      ''');
+    ''');
   }
 }

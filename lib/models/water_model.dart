@@ -19,21 +19,9 @@ class WaterModel {
 
   factory WaterModel.fromMap(Map<String, dynamic> map) {
     return WaterModel(
-      id: map['id'],
-      amount: map['amount'],
-      dateTime: DateTime.parse(map['dateTime']),
-    );
-  }
-
-  WaterModel copyWith({
-    int? id,
-    int? amount,
-    DateTime? dateTime,
-  }) {
-    return WaterModel(
-      id: id ?? this.id,
-      amount: amount ?? this.amount,
-      dateTime: dateTime ?? this.dateTime,
+      id: map['id'] as int?,
+      amount: map['amount'] as int,
+      dateTime: DateTime.parse(map['dateTime'] as String),
     );
   }
 }
