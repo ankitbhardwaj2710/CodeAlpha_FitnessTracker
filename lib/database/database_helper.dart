@@ -20,11 +20,7 @@ class DatabaseHelper {
 
     final path = join(dbPath, 'fitness_tracker.db');
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDatabase,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDatabase);
   }
 
   Future<void> _createDatabase(Database db, int version) async {
@@ -38,5 +34,12 @@ class DatabaseHelper {
         level TEXT
       )
     ''');
+    await db.execute('''
+      CREATE TABLE water(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        amount INTEGER,
+        date TEXT
+      )
+      ''');
   }
 }

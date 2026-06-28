@@ -1,94 +1,120 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../models/dashboard_model.dart';
 
 class GoalCard extends StatelessWidget {
-  const GoalCard({super.key});
+  final int totalCalories;
+  final int totalDuration;
+  final int workoutCount;
+
+  const GoalCard({
+    super.key,
+    required this.totalCalories,
+    required this.totalDuration,
+    required this.workoutCount,
+  });
 
   @override
   Widget build(BuildContext context) {
+    double progress = totalCalories / 2000;
+
+    if (progress > 1) {
+      progress = 1;
+    }
 
     return Container(
-
       width: double.infinity,
-
       padding: const EdgeInsets.all(22),
-
       decoration: BoxDecoration(
-
         color: AppColors.card,
-
         borderRadius: BorderRadius.circular(25),
-
       ),
-
       child: Column(
-
         children: [
-
           const Text(
-
-            "Today's Goal",
-
+            "Today's Fitness",
             style: TextStyle(
-
               color: AppColors.grey,
-
-              fontSize:16,
-
+              fontSize: 16,
             ),
-
           ),
 
-          const SizedBox(height:12),
+          const SizedBox(height: 20),
 
           Text(
-
-            "${(dashboardData.goalPercent*100).toInt()}%",
-
+            "$totalCalories kcal",
             style: const TextStyle(
-
               color: Colors.white,
-
-              fontSize:42,
-
+              fontSize: 38,
               fontWeight: FontWeight.bold,
-
             ),
-
           ),
 
-          const SizedBox(height:12),
+          const SizedBox(height: 15),
 
           LinearProgressIndicator(
-
-            value: dashboardData.goalPercent,
-
-            minHeight:8,
-
+            value: progress,
+            minHeight: 8,
+            borderRadius: BorderRadius.circular(20),
           ),
 
-          const SizedBox(height:12),
+          const SizedBox(height: 20),
 
-          Text(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
 
-            "${dashboardData.calories} / 800 Calories",
+              _StatItem(
+                title: "Workout",
+                value: "$workoutCount",
+              ),
 
-            style: const TextStyle(
+              _StatItem(
+                title: "Minutes",
+                value: "$totalDuration",
+              ),
 
-              color: AppColors.grey,
-
-            ),
-
-          ),
-
+            ],
+          )
         ],
-
       ),
-
     );
-
   }
+}
 
+class _StatItem extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const _StatItem({
+    required this.title,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+
+        Text(
+          value,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
+
+        const SizedBox(height: 6),
+
+        Text(
+          title,
+          style: const TextStyle(
+            color: AppColors.grey,
+          ),
+        ),
+
+      ],
+    );
+  }
 }
