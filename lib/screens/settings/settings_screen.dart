@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/constants/app_colors.dart';
+import '../../providers/theme_provider.dart';
 import '../bmi/bmi_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -10,15 +12,52 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-
       appBar: AppBar(
         title: const Text("Settings"),
         centerTitle: true,
       ),
-
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+
+          // ==========================
+          // 🌙 Dark Mode
+          // ==========================
+
+          Card(
+            color: AppColors.card,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Consumer<ThemeProvider>(
+              builder: (context, provider, child) {
+                return SwitchListTile(
+                  secondary: const Icon(
+                    Icons.dark_mode,
+                    color: Colors.amber,
+                  ),
+                  title: const Text(
+                    "Dark Mode",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  subtitle: const Text(
+                    "Enable / Disable Theme",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  value: provider.isDark,
+                  onChanged: (value) {
+                    provider.toggleTheme(value);
+                  },
+                );
+              },
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          // ==========================
+          // BMI Calculator
+          // ==========================
 
           Card(
             color: AppColors.card,
@@ -56,6 +95,10 @@ class SettingsScreen extends StatelessWidget {
 
           const SizedBox(height: 20),
 
+          // ==========================
+          // Version
+          // ==========================
+
           Card(
             color: AppColors.card,
             shape: RoundedRectangleBorder(
@@ -76,7 +119,6 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );

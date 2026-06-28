@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../services/water_service.dart';
+import '../../../services/notification_service.dart';
 
 class WaterCard extends StatefulWidget {
   const WaterCard({super.key});
@@ -32,10 +33,22 @@ class _WaterCardState extends State<WaterCard> {
     });
   }
 
-  Future<void> _addWater(int amount) async {
-    await _service.addQuickWater(amount);
-    await _loadWater();
-  }
+ Future<void> _addWater(int amount) async {
+  print("Button Pressed");
+
+  await _service.addQuickWater(amount);
+
+  print("Water Saved");
+
+  await _loadWater();
+
+  print("Showing Notification");
+
+  await NotificationService.showNotification(
+    title: "Great Job! 💧",
+    body: "$amount ml water added successfully.",
+  );
+}
 
   @override
   Widget build(BuildContext context) {

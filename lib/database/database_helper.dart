@@ -46,11 +46,12 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE water(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        amount INTEGER NOT NULL,
-        dateTime TEXT NOT NULL
-      )
-    ''');
+CREATE TABLE goals(
+  id INTEGER PRIMARY KEY,
+  waterGoal INTEGER,
+  calorieGoal INTEGER,
+  workoutGoal INTEGER
+)
+''');
   }
 }
