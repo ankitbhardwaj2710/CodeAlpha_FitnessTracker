@@ -77,14 +77,16 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         icon: const Icon(Icons.add),
         label: const Text("Add Workout"),
         onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const AddWorkoutScreen(),
-            ),
-          );
+          final result = await Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (_) => const AddWorkoutScreen(),
+  ),
+);
 
-          loadWorkouts();
+if (result == true) {
+  await loadWorkouts();
+}
         },
       ),
     );

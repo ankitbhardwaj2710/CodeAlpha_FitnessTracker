@@ -20,7 +20,16 @@ class DatabaseHelper {
 
     final path = join(dbPath, 'fitness_tracker.db');
 
-    return await openDatabase(path, version: 1, onCreate: _createDatabase);
+   return await openDatabase(
+  path,
+  version: 2,
+  onCreate: _createDatabase,
+  onUpgrade: (db, oldVersion, newVersion) async {
+    await db.execute("DROP TABLE IF EXISTS workouts");
+    await db.execute("DROP TABLE IF EXISTS water");
+    await _createDatabase(db, newVersion);
+  },
+);
   }
 
   Future<void> _createDatabase(Database db, int version) async {

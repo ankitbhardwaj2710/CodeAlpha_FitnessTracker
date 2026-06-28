@@ -5,20 +5,24 @@ class DashboardService {
   final WorkoutService _service = WorkoutService();
 
   Future<DashboardStats> getStats() async {
-    final workouts = await _service.getWorkouts();
+  final workouts = await _service.getWorkouts();
 
-    int calories = 0;
-    int duration = 0;
+  print("Dashboard Workouts Count: ${workouts.length}");
 
-    for (final workout in workouts) {
-      calories += workout.calories;
-      duration += workout.duration;
-    }
+  int calories = 0;
+  int duration = 0;
 
-    return DashboardStats(
-      workoutCount: workouts.length,
-      totalCalories: calories,
-      totalDuration: duration,
-    );
+  for (final workout in workouts) {
+    print(workout.toMap());
+
+    calories += workout.calories;
+    duration += workout.duration;
   }
+
+  return DashboardStats(
+    workoutCount: workouts.length,
+    totalCalories: calories,
+    totalDuration: duration,
+  );
+}
 }

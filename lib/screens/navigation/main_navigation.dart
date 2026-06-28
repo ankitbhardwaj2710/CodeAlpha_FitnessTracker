@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../home/home_screen.dart';
-import '../settings/settings_screen.dart';
-import '../stats/stats_screen.dart';
 import '../workout/workout_screen.dart';
+import '../stats/stats_screen.dart';
+import '../settings/settings_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -15,26 +15,34 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int currentIndex = 0;
 
-  final List<Widget> pages = const [
-    HomeScreen(),
-    WorkoutScreen(),
-    StatsScreen(),
-    SettingsScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: pages,
-      ),
+    Widget currentPage;
 
+    switch (currentIndex) {
+      case 0:
+        currentPage = const HomeScreen();
+        break;
+      case 1:
+        currentPage = const WorkoutScreen();
+        break;
+      case 2:
+        currentPage = const StatsScreen();
+        break;
+      case 3:
+        currentPage = const SettingsScreen();
+        break;
+      default:
+        currentPage = const HomeScreen();
+    }
+
+    return Scaffold(
+      body: currentPage,
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentIndex,
-        onDestinationSelected: (value) {
+        onDestinationSelected: (index) {
           setState(() {
-            currentIndex = value;
+            currentIndex = index;
           });
         },
         destinations: const [
