@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/constants/app_colors.dart';
+// import '../core/constants/app_colors.dart';
 
 class InfoCard extends StatelessWidget {
   final String title;
@@ -22,14 +22,14 @@ class InfoCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            color.withOpacity(.9),
-            color.withOpacity(.55),
+            color.withValues(alpha: .9),
+            color.withValues(alpha: .55),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(.30),
+            color: color.withValues(alpha: .30),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),

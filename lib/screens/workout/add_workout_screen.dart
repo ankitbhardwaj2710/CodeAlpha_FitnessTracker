@@ -121,9 +121,9 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
 
                   await WorkoutService().insertWorkout(workout);
 
-                  if (mounted) {
-                    Navigator.pop(context, true);
-                  }
+                  if (!context.mounted) return;
+
+                  Navigator.pop(context, true);
                 },
 
                 child: const Text(

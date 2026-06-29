@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_strings.dart';
+// import '../../core/constants/app_strings.dart';
 import 'onboarding_data.dart';
-import '../home/home_screen.dart';
+// import '../home/home_screen.dart';
 import '../navigation/main_navigation.dart';
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

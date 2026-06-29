@@ -34,15 +34,15 @@ class _WaterCardState extends State<WaterCard> {
   }
 
  Future<void> _addWater(int amount) async {
-  print("Button Pressed");
+  // print("Button Pressed");
 
   await _service.addQuickWater(amount);
 
-  print("Water Saved");
+  // print("Water Saved");
 
   await _loadWater();
 
-  print("Showing Notification");
+  // print("Showing Notification");
 
   await NotificationService.showNotification(
     title: "Great Job! 💧",

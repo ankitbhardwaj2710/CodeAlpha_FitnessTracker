@@ -16,18 +16,12 @@ class WaterService {
 
   /// Quick Add Water (250ml, 500ml, etc.)
   Future<void> addQuickWater(int amount) async {
-  print("Adding $amount ml");
-
   await insertWater(
     WaterModel(
       amount: amount,
       dateTime: DateTime.now(),
     ),
   );
-
-  final total = await getTodayWater();
-
-  print("Today's Total Water = $total");
 }
 
   /// Get All Water Entries
